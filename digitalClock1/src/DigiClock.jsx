@@ -7,15 +7,19 @@ function DigiClock(){
         setTime(new Date());
     })
 
-    const hours=time.getHours();
-    const minutes=time.getMinutes();
-    const seconds=time.getSeconds();
+    const hours=numberFormat(time.getHours());
+    const minutes=numberFormat(time.getMinutes());
+    const seconds=numberFormat(time.getSeconds());
+
+    function numberFormat(number){    
+        return (number<10 ? "0" : "")+number;
+    }
 
     return(
-        <>
+        <div>
         <h1>Digital Clock</h1>
         <span> {hours}:{minutes}:{seconds} </span>
-        </>
+        </div>
     )
 
 }
