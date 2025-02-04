@@ -1,11 +1,19 @@
 import react,{useState,useEffect} from "react";
+import './index.css'
 function DigiClock(){
 
     const[time,setTime] = useState(new Date());
+    const[color,setColor]=useState("blue");
 
     useEffect(()=>{
-        setTime(new Date());
-    })
+        const intervalId = setInterval(() => {
+            setTime(new Date());
+        },1000);
+
+        return() => {
+            clearInterval(intervalId);
+        }
+    },[]);
 
     const hours=numberFormat(time.getHours());
     const minutes=numberFormat(time.getMinutes());
@@ -15,10 +23,15 @@ function DigiClock(){
         return (number<10 ? "0" : "")+number;
     }
 
+    const handleColor = () => {
+        setColor((c) => (c=="blue" ? "red" : "blue"));
+    }
+
     return(
-        <div>
+        <div className="digiClock"  style={{color:color}}>
         <h1>Digital Clock</h1>
-        <span> {hours}:{minutes}:{seconds} </span>
+        <span> {hours}:{minutes}:{seconds} </span><br/>
+        <button onClick={() =>handleColor()}>Change Color</button>
         </div>
     )
 
